@@ -47,11 +47,17 @@ def query_server():
     return json.loads(response)
 
 def failure_message(response):
-    if response['message']:
-        return f'Failed: {response["message"]}'
-    else:
-        return 'Wrong answer'
+    msg = None
+    if isinstance(response, dict):
+        msg = response.get('message')
+    if msg:
+        return f'Failed: {msg}'
+    return 'Wrong answer'
 
 def verify():
     response = query_server()
-    assert response["grade"] == 1, failure_message(response)
+    grade = None
+    if isinstance(response, dict):
+        grade = response.get('grade')
+    if grade != 1:
+        raise AssertionError(failure_message(response))
