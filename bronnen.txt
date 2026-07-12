@@ -1,0 +1,40 @@
+# Reflectie bij video https://www.youtube.com/watch?v=AsFK1tC5plU
+
+In deze presentatie bespreken Jazmin Cano (Accessibility Product Manager) en peter Galbraith (Senior Accessibility Engineer)
+van Owlchemy labs hoe zij toegankelijkheidsopties hebben toegevoegd aan het spel Cosmonious High voor spelers met een 
+visuele beperking. Het doel van de presentatie is om te tonen dat toegankelijkheid een belangrijk onderdeel is van gameontwikkeling. 
+
+Een eerste belangrijk punt is dat toegankelijkheid al tijdens de ontwikkeling van een game moet worden meegenomen. wanneer dit pas op het 
+einde gebeurt, wordt het veel moeilijk en ook duurder om functies toe te voegen. Door hier vanaf het begin rekening mee te houden, 
+kan een grotere groep spelers van het spel genieten. 
+
+Daarnaast Leggen ze ook uit dat er verschillende soorten visuele beperkingen bestaan. Niet elke speler heeft dezelfde noden. Sommige spelers zien 
+weinig contract, anderen hebben problemen met kleine tekst of het herkennen van objecten op afstand. Daarom is het belangrijk om meerdere 
+hulpmiddelen aan te bieden in plaats van één algemene oplossing. 
+
+Een derde punt gaat over het gebruik van geluid en gesproken feedback. In een game wordt vaak veel informatie visueel weergegeven. Voor spelers
+die minder goed kunnen zien, kan extra audio-informatie helpen om belangrijke gebeurtenissen en objecten beter te herkennen. 
+
+Verder wordt uitgelegd hoe het team heeft getest met spelers die daadwerkelijk een visuele beperking hebben. Op die manier kregen
+ze directe feedback over wat goed werkte en wat nog verbeterd moest worden. Dit maakte het mogelijk om problemen te ontdekken
+die ontwikkelaars zelf niet altijd zouden opmerking. 
+
+# Persoonlijke Reflectie
+
+Ik vond deze presentatie interessant omdat gamen één van mijn interesses is en ik ook verschillende mensen ken met een visuele beperking.
+Als speler denk je daar vaak niet over na omdat de meeste functies voor mensen zonder beperking vanzelfsprekend zijn. 
+Er wordt dan ook heel snel gezegd: "Gamen is toch niet voor mensen met een visuele beperking?"
+Wat ik ook positief vond, was dat er 2 sprekers waren uit verschillende afdelingen. Meestal verwacht je vooral een ontwikkelaar die 
+uitlegt hoe iets technisch werkt, maar hier kwam ook iemand van de productafdeling aan het woord. Daardoor kreeg ik niet alleen technische
+informatie, maar ook inzicht in hoe beslissingen rond toegankelijkheid binnen een bedrijf worden genomen. 
+
+Ik ben het eens met het idee dat toegankelijkheid vanaf het begin van een project moet worden meegenomen. Dat lijkt mij logischer dan achteraf
+nog grote aanpassingen te moeten doen. 
+
+De sprekers vulden elkaar goed aan en gebruikten voorbeelden uit een echt project. Daardoor bleef de presentatie begrijpelijk. Moeilijke termen werden meestal 
+voldoende uitgelegd, waardoor ik het verhaal goed kon volgen. 
+
+# Conclusie
+
+de presentatie toont duidelijk waarom toegankelijkheid belangrijk is. Dankzij de combinatie van technische en productgerichte inzichten
+vond ik dit een leerrijke en relevante video
