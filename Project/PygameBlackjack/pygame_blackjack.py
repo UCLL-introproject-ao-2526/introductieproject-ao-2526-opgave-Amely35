@@ -15,8 +15,12 @@ pygame.display.set_caption('Pygame Blackjack!')
 fps = 60
 timer = pygame.time.Clock()
 font = pygame.font.Font('freesansbold.ttf', 44)
+
+# Tutorial font toevoegen aangepast aan het scherm
+tutorial_font = pygame.font.Font('freesansbold.ttf', 24)
 smaller_font = pygame.font.Font('freesansbold.ttf', 36)
 active = False
+show_tutorial = True
 # win, loss, draw/push
 records = [0, 0, 0]
 player_score = 0
@@ -150,12 +154,69 @@ def check_endgame(hand_act, deal_score, play_score, result, totals, add):
             add = False
     return result, totals, add
 
+# Tutorial toevoegen met uitleg Hit en Stand
+
+def draw_tutorial():
+    screen.fill((20, 80, 20))
+
+    title = font.render("BLACKJACK TUTORIAL", True, "white")
+    screen.blit(title, (40, 50))
+
+    line1 = tutorial_font.render("Welkom bij Blackjack!", True, "white")
+    line2 = tutorial_font.render("Probeer zo dicht mogelijk bij 21 te komen.", True, "white")
+    line3 = tutorial_font.render("Hit = neem een extra kaart.", True, "white")
+    line4 = tutorial_font.render("Stand = stop met kaarten nemen.", True, "white")
+    line5 = tutorial_font.render("Ga je boven 21? Dan verlies je.", True, "white")
+
+    screen.blit(line1, (40, 180))
+    screen.blit(line2, (40, 240))
+    screen.blit(line3, (40, 300))
+    screen.blit(line4, (40, 360))
+    screen.blit(line5, (40, 420))
+
+    start_button = pygame.draw.rect(
+        screen,
+        "white",
+        [100, 650, 400, 100]
+    )
+
+    pygame.draw.rect(
+        screen,
+        "Gold",
+        [100, 650, 400, 100],
+        4
+    )
+
+    start_text = tutorial_font.render(
+        "START GAME",
+        True,
+        "Forest green"
+    )
+
+    screen.blit(start_text, (210, 690))
+
+    return start_button
 
 # main game loop
 run = True
 while run:
-    # run game at our framerate and fill screen with bg color
+
+    if show_tutorial:
+        tutorial_button = draw_tutorial()
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if tutorial_button.collidepoint(event.pos):
+                    show_tutorial = False
+
+        continue
+
     timer.tick(fps)
+    screen.fill('black')
 
     # achtergrond aanpassen 
     screen.fill((0,50,0))

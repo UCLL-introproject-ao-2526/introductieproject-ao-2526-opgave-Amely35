@@ -15,5 +15,5 @@ Video op youtube gekeken omtrent de aanpassingen in een bepaalde game voor mense
 Ik ben er om 21u aan begonnen om de bestaande code te bekeken en te begrijpen hoe het spel werkt en voor mezelf opgeschreven welke mogelijke aanpassingen of uitbreidingen ik kan doen voor dit spel. 
 Vandaag is ook de eerste keer dat ik echt kan doorwerken aan de game en ik werk dan ook vaak in langere stukken hieraan na mijn werk nog.
 Een van de eerste aanpassingen dat ik wil doen, is de achtergrond aanpassen van zwart naar donkergroen. Hier dan ook moeten spelen met de RGB van 30,120,30 naar 20,80,20 naar 0,50,0 om de gewenste kleur te krijgen. 
-
+Omdat ik zelf niet bekend met het spel was ik gaan opzoeken wat "Hit" en "Stand" betekend en dacht ik dat het misschien wel handig is om een tutorial hiervan toe te voegen. Dan liep ik ook wel tegen de font grootte aan dat dit niet mooi op mijn scherm pastte en moest ik dit aanpassen van 44 naar 24 en extra code toe te voegen hiervoor. 
 
