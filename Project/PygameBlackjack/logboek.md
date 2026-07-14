@@ -8,3 +8,12 @@ Hiervoor moet ik de e-mail nog sturen naar Daan om feedback te vragen.
 # 13 juli 0000
 
 Video op youtube gekeken omtrent de aanpassingen in een bepaalde game voor mensen met een visuele beperking. Heel leerrijk en interessant om dit ook vanuit verschillende invalshoeken te horen. Hiervan ook al tekstbestand "Bronnen" voor de opdracht geschreven. 
+
+# 14 juli 2100
+
+
+Ik ben er om 21u aan begonnen om de bestaande code te bekeken en te begrijpen hoe het spel werkt en voor mezelf opgeschreven welke mogelijke aanpassingen of uitbreidingen ik kan doen voor dit spel. 
+Vandaag is ook de eerste keer dat ik echt kan doorwerken aan de game en ik werk dan ook vaak in langere stukken hieraan na mijn werk nog.
+Een van de eerste aanpassingen dat ik wil doen, is de achtergrond aanpassen van zwart naar donkergroen. Hier dan ook moeten spelen met de RGB van 30,120,30 naar 20,80,20 naar 0,50,0 om de gewenste kleur te krijgen. 
+
+

@@ -156,7 +156,10 @@ run = True
 while run:
     # run game at our framerate and fill screen with bg color
     timer.tick(fps)
-    screen.fill('black')
+
+    # achtergrond aanpassen 
+    screen.fill((0,50,0))
+
     # initial deal to player and dealer
     if initial_deal:
         for i in range(2):
