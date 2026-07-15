@@ -8,6 +8,7 @@ pygame.init()
 card_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 #symbolen toevoegen aan kaarten
 card_suits = ['♠', '♥', '♦', '♣']
+color = "red" if card_suits in ['♥', '♦'] else "black"
 one_deck = 4 * card_values
 
 one_deck = []
@@ -21,11 +22,11 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Pygame Blackjack!')
 fps = 60
 timer = pygame.time.Clock()
-font = pygame.font.Font('freesansbold.ttf', 44)
+font = pygame.font.SysFont("segoe ui symbol", 44)
 
 # Tutorial font toevoegen aangepast aan het scherm
-tutorial_font = pygame.font.Font('freesansbold.ttf', 24)
-smaller_font = pygame.font.Font('freesansbold.ttf', 36)
+tutorial_font = pygame.font.SysFont("segoe ui symbol", 44)
+smaller_font = pygame.font.SysFont("segoe ui symbol", 44)
 active = False
 show_tutorial = True
 # win, loss, draw/push
@@ -67,16 +68,17 @@ def draw_cards(player, dealer, reveal):
         pygame.draw.rect(screen, 'white', [70 + (70 * i), 460 + (5 * i), 120, 220], 0, 5)
         # functie verwacht een string maar moet een tuple zijn
         card_text=f"{player[i][0]}{player[i][1]}"
-        screen.blit(font.render(player[i], True, 'black'), (75 + 70 * i, 465 + 5 * i))
-        screen.blit(font.render(player[i], True, 'black'), (75 + 70 * i, 635 + 5 * i))
+        screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 465 + 5 * i))
+        screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 635 + 5 * i))
         pygame.draw.rect(screen, 'red', [70 + (70 * i), 460 + (5 * i), 120, 220], 5, 5)
 
     # if player hasn't finished turn, dealer will hide one card
     for i in range(len(dealer)):
         pygame.draw.rect(screen, 'white', [70 + (70 * i), 160 + (5 * i), 120, 220], 0, 5)
         if i != 0 or reveal:
-            screen.blit(font.render(dealer[i], True, 'black'), (75 + 70 * i, 165 + 5 * i))
-            screen.blit(font.render(dealer[i], True, 'black'), (75 + 70 * i, 335 + 5 * i))
+            card_text = f"{dealer[i][0]}{dealer[i][1]}"
+            screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 165 + 5 * i))
+            screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 335 + 5 * i))
         else:
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 165 + 5 * i))
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 335 + 5 * i))
@@ -87,23 +89,34 @@ def draw_cards(player, dealer, reveal):
 def calculate_score(hand):
     # calculate hand score fresh every time, check how many aces we have
     hand_score = 0
-    aces_count = hand.count('A')
+    aces_count = sum(1 for card in hand if card[0] == 'A')
     for i in range(len(hand)):
+        card_value = hand[i][0]
         # for 2,3,4,5,6,7,8,9 - just add the number to total
         for j in range(8):
-            if hand[i] == card_values[j]:
-                hand_score += int(hand[i])
-        # for 10 and face cards, add 10
-        if hand[i] in ['10', 'J', 'Q', 'K']:
+            if card_value == ['2', '3', '4', '5', '6', '7', '8', '9']:
+                hand_score += int(card_value)
+        
+        if card_value in ['10', 'J', 'Q', 'K']:
             hand_score += 10
-        # for aces start by adding 11, we'll check if we need to reduce afterwards
-        elif hand[i] == 'A':
+
+        elif card_value == 'A':
             hand_score += 11
-    # determine how many aces need to be 1 instead of 11 to get under 21 if possible
-    if hand_score > 21 and aces_count > 0:
-        for i in range(aces_count):
-            if hand_score > 21:
-                hand_score -= 10
+
+            
+    #         if hand[i] == card_values[j]:
+    #             hand_score += int(hand[i])
+    #     # for 10 and face cards, add 10
+    #     if hand[i] in ['10', 'J', 'Q', 'K']:
+    #         hand_score += 10
+    #     # for aces start by adding 11, we'll check if we need to reduce afterwards
+    #     elif hand[i] == 'A':
+    #         hand_score += 11
+    # # determine how many aces need to be 1 instead of 11 to get under 21 if possible
+    # if hand_score > 21 and aces_count > 0:
+    #     for i in range(aces_count):
+    #         if hand_score > 21:
+    #             hand_score -= 10
     return hand_score
 
 
@@ -240,6 +253,7 @@ while run:
     # once game is activated, and dealt, calculate scores and display cards
     if active:
         player_score = calculate_score(my_hand)
+        print(my_hand)
         draw_cards(my_hand, dealer_hand, reveal_dealer)
         if reveal_dealer:
             dealer_score = calculate_score(dealer_hand)

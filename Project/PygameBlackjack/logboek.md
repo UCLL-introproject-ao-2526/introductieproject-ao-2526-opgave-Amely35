@@ -28,4 +28,6 @@ Een volgende uitbreiding wat ik dacht om toe te passen was een soort van uitzond
 Hiervoor heb ik dan de tekst die in het begin van de game staat ook wel moeten aanpassen dat ze niet enkel tot 21 moeten geraken. 
 Uiteindelijk wou ik dan ook de kaarten aanpassen zodat de symbolen van een echt kaartspel hierop verschijnen. Dit is wel even zoeken geweest maar na een zoektocht op Google is het toch gelukt. 
 Ik kreeg dan wel een foutmelding omdat mijn kaarten nu in een tuple zaten en in de functie van draw_cards verwacht deze een string en moest ik het daar ook aanpassen. 
+Heel hard moeten zoeken waarom dat mijn symbolen niet zichtbaar waren op mijn kaarten maar dit had dan uiteindelijk met het lettertype te maken. 
+Ik wou nog de kleur van de symbolen aanpassen en al een deel  in de code gezet maar het werkt nog niet maar dat gaan we morgen bekijken want het is ondertussen al na middernacht. 
 
