@@ -5,8 +5,15 @@ import pygame
 
 pygame.init()
 # game variables
-cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-one_deck = 4 * cards
+card_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+#symbolen toevoegen aan kaarten
+card_suits = ['♠', '♥', '♦', '♣']
+one_deck = 4 * card_values
+
+one_deck = []
+for suit in card_suits:
+    for value in card_values:
+        one_deck.append((value, suit))
 decks = 4
 WIDTH = 600
 HEIGHT = 900
@@ -25,6 +32,9 @@ show_tutorial = True
 records = [0, 0, 0]
 player_score = 0
 dealer_score = 0
+
+# toevoegen "chaos mode"
+target_score = 21
 initial_deal = False
 my_hand = []
 dealer_hand = []
@@ -55,6 +65,8 @@ def draw_scores(player, dealer):
 def draw_cards(player, dealer, reveal):
     for i in range(len(player)):
         pygame.draw.rect(screen, 'white', [70 + (70 * i), 460 + (5 * i), 120, 220], 0, 5)
+        # functie verwacht een string maar moet een tuple zijn
+        card_text=f"{player[i][0]}{player[i][1]}"
         screen.blit(font.render(player[i], True, 'black'), (75 + 70 * i, 465 + 5 * i))
         screen.blit(font.render(player[i], True, 'black'), (75 + 70 * i, 635 + 5 * i))
         pygame.draw.rect(screen, 'red', [70 + (70 * i), 460 + (5 * i), 120, 220], 5, 5)
@@ -79,7 +91,7 @@ def calculate_score(hand):
     for i in range(len(hand)):
         # for 2,3,4,5,6,7,8,9 - just add the number to total
         for j in range(8):
-            if hand[i] == cards[j]:
+            if hand[i] == card_values[j]:
                 hand_score += int(hand[i])
         # for 10 and face cards, add 10
         if hand[i] in ['10', 'J', 'Q', 'K']:
@@ -163,16 +175,14 @@ def draw_tutorial():
     screen.blit(title, (40, 50))
 
     line1 = tutorial_font.render("Welkom bij Blackjack!", True, "white")
-    line2 = tutorial_font.render("Probeer zo dicht mogelijk bij 21 te komen.", True, "white")
+    line2 = tutorial_font.render("Probeer zo dicht mogelijk bij 21 (of 22,23) te komen.", True, "white")
     line3 = tutorial_font.render("Hit = neem een extra kaart.", True, "white")
     line4 = tutorial_font.render("Stand = stop met kaarten nemen.", True, "white")
-    line5 = tutorial_font.render("Ga je boven 21? Dan verlies je.", True, "white")
 
     screen.blit(line1, (40, 180))
     screen.blit(line2, (40, 240))
     screen.blit(line3, (40, 300))
     screen.blit(line4, (40, 360))
-    screen.blit(line5, (40, 420))
 
     start_button = pygame.draw.rect(
         screen,
@@ -238,6 +248,12 @@ while run:
         draw_scores(player_score, dealer_score)
     buttons = draw_game(active, records, outcome)
 
+    target_text = smaller_font.render(
+        f"Target: {target_score}",
+        True,
+        "Yellow"
+    )
+
     # event handling, if quit pressed, then exit game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -247,6 +263,8 @@ while run:
                 if buttons[0].collidepoint(event.pos):
                     active = True
                     initial_deal = True
+                    # bij elke nieuwe hand een eindscore kiezen
+                    target_score = random.choice([21,22,23])
                     game_deck = copy.deepcopy(decks * one_deck)
                     my_hand = []
                     dealer_hand = []
@@ -265,8 +283,9 @@ while run:
                     hand_active = False
                 elif len(buttons) == 3:
                     if buttons[2].collidepoint(event.pos):
+                        target_score = random.choice([21,22,23])
                         active = True
-                        initial_deal = True
+                        initial_deal = True                
                         game_deck = copy.deepcopy(decks * one_deck)
                         my_hand = []
                         dealer_hand = []

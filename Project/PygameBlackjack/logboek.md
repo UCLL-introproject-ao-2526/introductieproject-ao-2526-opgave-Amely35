@@ -12,8 +12,20 @@ Video op youtube gekeken omtrent de aanpassingen in een bepaalde game voor mense
 # 14 juli 2100
 
 
-Ik ben er om 21u aan begonnen om de bestaande code te bekeken en te begrijpen hoe het spel werkt en voor mezelf opgeschreven welke mogelijke aanpassingen of uitbreidingen ik kan doen voor dit spel. 
+Ik ben er om 21u aan begonnen om de bestaande code te bekijken en te begrijpen hoe het spel werkt en voor mezelf opgeschreven welke mogelijke aanpassingen of uitbreidingen ik kan doen voor dit spel.
+    - De achtergrond aanpassen
+    - Met de kleuren van de kaarten en de knoppen "spelen" om te kijken wat hier het beste bij past
+    - Game aanpassen dat er ook andere scores mogelijk zijn gelijk 22 of 33
+    - Tutorial toevoegen aan het begin van de game: wat betekenen de verschillende knoppen. 
+Voor andere uitbreidingen moet ik zien hoeveel tijd ik heb omdat ik ook nog voor een ander vak aan het studeren ben, in combinatie met 80% werken dus het is soms wel tot laat in de nacht doorwerken. 
 Vandaag is ook de eerste keer dat ik echt kan doorwerken aan de game en ik werk dan ook vaak in langere stukken hieraan na mijn werk nog.
 Een van de eerste aanpassingen dat ik wil doen, is de achtergrond aanpassen van zwart naar donkergroen. Hier dan ook moeten spelen met de RGB van 30,120,30 naar 20,80,20 naar 0,50,0 om de gewenste kleur te krijgen. 
 Omdat ik zelf niet bekend met het spel was ik gaan opzoeken wat "Hit" en "Stand" betekend en dacht ik dat het misschien wel handig is om een tutorial hiervan toe te voegen. Dan liep ik ook wel tegen de font grootte aan dat dit niet mooi op mijn scherm pastte en moest ik dit aanpassen van 44 naar 24 en extra code toe te voegen hiervoor. 
+
+# 15 juli 2200
+
+Een volgende uitbreiding wat ik dacht om toe te passen was een soort van uitzondering op de scores, dat het niet altijd tot 21 moet gaan maar het mag ook tot 22 of 23 gaan. Hier heb ik dan wel effe mijn hoofd over moeten breken en hulp moeten inschakelen om te zien hoe ik dit juist ging programmeren. 
+Hiervoor heb ik dan de tekst die in het begin van de game staat ook wel moeten aanpassen dat ze niet enkel tot 21 moeten geraken. 
+Uiteindelijk wou ik dan ook de kaarten aanpassen zodat de symbolen van een echt kaartspel hierop verschijnen. Dit is wel even zoeken geweest maar na een zoektocht op Google is het toch gelukt. 
+Ik kreeg dan wel een foutmelding omdat mijn kaarten nu in een tuple zaten en in de functie van draw_cards verwacht deze een string en moest ik het daar ook aanpassen. 
 
