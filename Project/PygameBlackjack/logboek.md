@@ -31,9 +31,10 @@ Ik kreeg dan wel een foutmelding omdat mijn kaarten nu in een tuple zaten en in 
 Heel hard moeten zoeken waarom dat mijn symbolen niet zichtbaar waren op mijn kaarten maar dit had dan uiteindelijk met het lettertype te maken. 
 Ik wou nog de kleur van de symbolen aanpassen en al een deel  in de code gezet maar het werkt nog niet maar dat gaan we morgen bekijken want het is ondertussen al na middernacht. 
 
-#16 juli 2200
+# 16 juli 2200
 
 Vandaag wou ik de kleuren wat aanpassen om de layout wat aantrekkelijker te maken en de knoppen wat verplaatsen zodat die niet heel het scherm  innemen. Ik vond dat de kaarten ook heel statisch binnenkomen dus ik wou ook een code schrijven om deze te animeren zodat het spel toch wat dynamischer lijkt. 
+Ook heb ik een naam toegevoegd aan de "bot" om het meer te doen lijken dat je echt met 2 aan't spelen bent. 
 
 
 

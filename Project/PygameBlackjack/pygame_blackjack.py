@@ -30,6 +30,7 @@ tutorial_font = pygame.font.SysFont("segoe ui symbol", 44)
 smaller_font = pygame.font.SysFont("segoe ui symbol", 44)
 active = False
 show_tutorial = True
+dealer_name = "Casino Bot"
 # win, loss, draw/push
 records = [0, 0, 0]
 player_score = 0
@@ -61,10 +62,19 @@ def deal_cards(current_hand, current_deck):
 
 # draw scores for player and dealer on screen
 def draw_scores(player, dealer):
-    screen.blit(font.render(f'Score[{player}]', True, 'white'), (350, 400))
+    screen.blit(
+        smaller_font.render(dealer_name, True, "gold"),
+        (20,10)
+    )
+    screen.blit(
+        font.render(f'score[{player}]', True, 'white'),
+        (350, 400)
+    )
     if reveal_dealer:
-        screen.blit(font.render(f'Score[{dealer}]', True, 'white'), (350, 100))
-
+        screen.blit(
+            font.render(f'score[{dealer}]', True, 'white'),
+            (350, 100)
+        ) 
 
 # draw cards visually onto screen
 def draw_cards(player, dealer, reveal):
@@ -88,7 +98,7 @@ def draw_cards(player, dealer, reveal):
         )
         screen.blit(
             font.render(card_text, True, 'black'),
-            (75 + 70 * i, y_pos +5)
+            (75 + 70 * i, y_pos + 175)
         )
         pygame.draw.rect(
             screen, 
@@ -119,7 +129,7 @@ def draw_cards(player, dealer, reveal):
             )
             screen.blit(
                 font.render(card_text, True, 'black'),
-                (75 + 70 * i, dealer_y + 5)
+                (75 + 70 * i, dealer_y + 175)
             )
         else:
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 165 + 5 * i))
@@ -151,20 +161,6 @@ def calculate_score(hand):
         elif card_value == 'A':
             hand_score += 11
 
-            
-    #         if hand[i] == card_values[j]:
-    #             hand_score += int(hand[i])
-    #     # for 10 and face cards, add 10
-    #     if hand[i] in ['10', 'J', 'Q', 'K']:
-    #         hand_score += 10
-    #     # for aces start by adding 11, we'll check if we need to reduce afterwards
-    #     elif hand[i] == 'A':
-    #         hand_score += 11
-    # # determine how many aces need to be 1 instead of 11 to get under 21 if possible
-    # if hand_score > 21 and aces_count > 0:
-    #     for i in range(aces_count):
-    #         if hand_score > 21:
-    #             hand_score -= 10
     return hand_score
 
 
@@ -288,7 +284,7 @@ while run:
 
     timer.tick(fps)
     if card_animation > 0:
-        card_animation-= 2
+        card_animation -= 1
 
     if dealer_animation > 0:
         dealer_animation -= 2
@@ -321,6 +317,7 @@ while run:
         True,
         "Yellow"
     )
+    screen.blit(target_text,(20,130))
 
     # event handling, if quit pressed, then exit game
     for event in pygame.event.get():
@@ -346,7 +343,7 @@ while run:
                 if buttons[0].collidepoint(event.pos) and player_score < 21 and hand_active:
                     my_hand, game_deck = deal_cards(my_hand, game_deck)
                     #kaart animatie toevoegen
-                    card_animation = 30
+                    card_animation = 40
                 # allow player to end turn (stand)
                 elif buttons[1].collidepoint(event.pos) and not reveal_dealer:
                     reveal_dealer = True
