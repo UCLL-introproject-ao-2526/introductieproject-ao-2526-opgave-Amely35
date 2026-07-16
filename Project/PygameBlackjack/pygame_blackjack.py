@@ -22,6 +22,7 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Pygame Blackjack!')
 fps = 60
 timer = pygame.time.Clock()
+# font aanpassen om symbolen zichtbaar te maken
 font = pygame.font.SysFont("segoe ui symbol", 44)
 
 # Tutorial font toevoegen aangepast aan het scherm
@@ -70,7 +71,7 @@ def draw_cards(player, dealer, reveal):
         card_text=f"{player[i][0]}{player[i][1]}"
         screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 465 + 5 * i))
         screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 635 + 5 * i))
-        pygame.draw.rect(screen, 'red', [70 + (70 * i), 460 + (5 * i), 120, 220], 5, 5)
+        pygame.draw.rect(screen, 'black', [70 + (70 * i), 460 + (5 * i), 120, 220], 5, 5)
 
     # if player hasn't finished turn, dealer will hide one card
     for i in range(len(dealer)):
@@ -82,7 +83,7 @@ def draw_cards(player, dealer, reveal):
         else:
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 165 + 5 * i))
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 335 + 5 * i))
-        pygame.draw.rect(screen, 'blue', [70 + (70 * i), 160 + (5 * i), 120, 220], 5, 5)
+        pygame.draw.rect(screen, 'black', [70 + (70 * i), 160 + (5 * i), 120, 220], 5, 5)
 
 
 # pass in player or dealer hand and get best score possible
