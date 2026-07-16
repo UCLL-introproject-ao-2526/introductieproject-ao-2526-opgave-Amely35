@@ -33,6 +33,7 @@ Ik wou nog de kleur van de symbolen aanpassen en al een deel  in de code gezet m
 
 #16 juli 2200
 
-Vandaag wou ik de kleuren wat aanpassen om de layout wat aantrekkelijker te maken en de knoppen wat verplaatsen zodat die niet heel het scherm  innemen. 
+Vandaag wou ik de kleuren wat aanpassen om de layout wat aantrekkelijker te maken en de knoppen wat verplaatsen zodat die niet heel het scherm  innemen. Ik vond dat de kaarten ook heel statisch binnenkomen dus ik wou ook een code schrijven om deze te animeren zodat het spel toch wat dynamischer lijkt. 
+
 
 

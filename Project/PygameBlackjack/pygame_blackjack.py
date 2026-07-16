@@ -37,6 +37,9 @@ dealer_score = 0
 
 # toevoegen "chaos mode"
 target_score = 21
+# kaarten animatie toevoegen
+card_animation = 0
+dealer_animation = 0
 initial_deal = False
 my_hand = []
 dealer_hand = []
@@ -66,24 +69,68 @@ def draw_scores(player, dealer):
 # draw cards visually onto screen
 def draw_cards(player, dealer, reveal):
     for i in range(len(player)):
-        pygame.draw.rect(screen, 'white', [70 + (70 * i), 460 + (5 * i), 120, 220], 0, 5)
+        y_pos = 460 +(5*i)
+
+        if i == len(player) - 1:
+            y_pos+=card_animation
+        pygame.draw.rect(
+            screen,
+            'white',
+            [70 + (70 * i), y_pos, 120, 220],
+            0,
+            5
+        )
         # functie verwacht een string maar moet een tuple zijn
         card_text=f"{player[i][0]}{player[i][1]}"
-        screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 465 + 5 * i))
-        screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 635 + 5 * i))
-        pygame.draw.rect(screen, 'black', [70 + (70 * i), 460 + (5 * i), 120, 220], 5, 5)
+        screen.blit(
+            font.render(card_text, True, 'black'),
+            (75 + 70 * i, y_pos +5)
+        )
+        screen.blit(
+            font.render(card_text, True, 'black'),
+            (75 + 70 * i, y_pos +5)
+        )
+        pygame.draw.rect(
+            screen, 
+            'black',
+            [70 + (70 * i), y_pos, 120, 220],
+            5,
+            5
+           )
 
     # if player hasn't finished turn, dealer will hide one card
     for i in range(len(dealer)):
-        pygame.draw.rect(screen, 'white', [70 + (70 * i), 160 + (5 * i), 120, 220], 0, 5)
+        dealer_y = 160 +(5*i)
+
+        if i == len(dealer) - 1:
+            dealer_y+=dealer_animation
+        pygame.draw.rect(
+            screen,
+            'white',
+            [70 + (70 * i), dealer_y, 120, 220],
+            0,
+            5
+        )
         if i != 0 or reveal:
             card_text = f"{dealer[i][0]}{dealer[i][1]}"
-            screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 165 + 5 * i))
-            screen.blit(font.render(card_text, True, 'black'), (75 + 70 * i, 335 + 5 * i))
+            screen.blit(
+                font.render(card_text, True, 'black'),
+                (75 + 70 * i, dealer_y + 5)
+            )
+            screen.blit(
+                font.render(card_text, True, 'black'),
+                (75 + 70 * i, dealer_y + 5)
+            )
         else:
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 165 + 5 * i))
             screen.blit(font.render('???', True, 'black'), (75 + 70 * i, 335 + 5 * i))
-        pygame.draw.rect(screen, 'black', [70 + (70 * i), 160 + (5 * i), 120, 220], 5, 5)
+        pygame.draw.rect(
+            screen, 
+            'black',
+            [70 + (70 * i), dealer_y, 120, 220],
+            5,
+            5
+           )    
 
 
 # pass in player or dealer hand and get best score possible
@@ -240,6 +287,11 @@ while run:
         continue
 
     timer.tick(fps)
+    if card_animation > 0:
+        card_animation-= 2
+
+    if dealer_animation > 0:
+        dealer_animation -= 2
     screen.fill('black')
 
     # achtergrond aanpassen 
@@ -260,6 +312,7 @@ while run:
             dealer_score = calculate_score(dealer_hand)
             if dealer_score < 17:
                 dealer_hand, game_deck = deal_cards(dealer_hand, game_deck)
+                dealer_animation = 30
         draw_scores(player_score, dealer_score)
     buttons = draw_game(active, records, outcome)
 
@@ -292,6 +345,8 @@ while run:
                 # if player can hit, allow them to draw a card
                 if buttons[0].collidepoint(event.pos) and player_score < 21 and hand_active:
                     my_hand, game_deck = deal_cards(my_hand, game_deck)
+                    #kaart animatie toevoegen
+                    card_animation = 30
                 # allow player to end turn (stand)
                 elif buttons[1].collidepoint(event.pos) and not reveal_dealer:
                     reveal_dealer = True
