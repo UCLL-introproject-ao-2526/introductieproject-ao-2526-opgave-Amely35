@@ -23,11 +23,14 @@ pygame.display.set_caption('Pygame Blackjack!')
 fps = 60
 timer = pygame.time.Clock()
 # font aanpassen om symbolen zichtbaar te maken
-font = pygame.font.SysFont("segoe ui symbol", 44)
+font = pygame.font.SysFont("segoe ui symbol", 32)
 
 # Tutorial font toevoegen aangepast aan het scherm
-tutorial_font = pygame.font.SysFont("segoe ui symbol", 44)
-smaller_font = pygame.font.SysFont("segoe ui symbol", 44)
+tutorial_font = pygame.font.SysFont("segoe ui symbol", 24)
+tutorial_font.set_bold(True)
+smaller_font = pygame.font.SysFont("segoe ui symbol", 20)
+result_font = pygame.font.SysFont("segoe ui symbol", 30)
+result_font .set_italic(True)
 active = False
 show_tutorial = True
 dealer_name = "Casino Bot"
@@ -67,13 +70,13 @@ def draw_scores(player, dealer):
         (20,10)
     )
     screen.blit(
-        font.render(f'score[{player}]', True, 'white'),
+        font.render(f'Score[{player}]', True, 'white'),
         (350, 400)
     )
     if reveal_dealer:
         screen.blit(
-            font.render(f'score[{dealer}]', True, 'white'),
-            (350, 100)
+            font.render(f'Score[{dealer}]', True, 'white'),
+            (400, 140)
         ) 
 
 # draw cards visually onto screen
@@ -92,12 +95,14 @@ def draw_cards(player, dealer, reveal):
         )
         # functie verwacht een string maar moet een tuple zijn
         card_text=f"{player[i][0]}{player[i][1]}"
+        suit = player [i][1]
+        card_color = "red" if suit in ['♥', '♦'] else "black"
         screen.blit(
-            font.render(card_text, True, 'black'),
+            font.render(card_text, True, card_color),
             (75 + 70 * i, y_pos +5)
         )
         screen.blit(
-            font.render(card_text, True, 'black'),
+            font.render(card_text, True, card_color),
             (75 + 70 * i, y_pos + 175)
         )
         pygame.draw.rect(
@@ -123,12 +128,14 @@ def draw_cards(player, dealer, reveal):
         )
         if i != 0 or reveal:
             card_text = f"{dealer[i][0]}{dealer[i][1]}"
+            suit = dealer [i][1]
+            card_color = "red" if suit in ['♥', '♦'] else "black"
             screen.blit(
-                font.render(card_text, True, 'black'),
+                font.render(card_text, True, card_color),
                 (75 + 70 * i, dealer_y + 5)
             )
             screen.blit(
-                font.render(card_text, True, 'black'),
+                font.render(card_text, True, card_color),
                 (75 + 70 * i, dealer_y + 175)
             )
         else:
@@ -145,22 +152,25 @@ def draw_cards(player, dealer, reveal):
 
 # pass in player or dealer hand and get best score possible
 def calculate_score(hand):
-    # calculate hand score fresh every time, check how many aces we have
     hand_score = 0
-    aces_count = sum(1 for card in hand if card[0] == 'A')
-    for i in range(len(hand)):
-        card_value = hand[i][0]
-        # for 2,3,4,5,6,7,8,9 - just add the number to total
-        for j in range(8):
-            if card_value == ['2', '3', '4', '5', '6', '7', '8', '9']:
-                hand_score += int(card_value)
-        
-        if card_value in ['10', 'J', 'Q', 'K']:
-            hand_score += 10
+    aces_count = sum(1 for card in hand if card[0] ==  'A')
 
+    for card in hand: 
+        card_value = card[0]
+
+        if card_value in ['2', '3', '4', '5', '6', '7', '8', '9']:
+            hand_score += int(card_value)
+
+        elif card_value in ['10','J', 'Q', 'K']:
+            hand_score += 10
+        
         elif card_value == 'A':
             hand_score += 11
 
+    while hand_score > target_score and aces_count > 0:
+        hand_score -= 10
+        aces_count -= 1 
+    
     return hand_score
 
 
@@ -190,12 +200,13 @@ def draw_game(act, record, result):
         screen.blit(score_text, (15, 840))
     # if there is an outcome for the hand that was played, display a restart button and tell user what happened
     if result != 0:
-        screen.blit(font.render(results[result], True, 'white'), (15, 25))
-        deal = pygame.draw.rect(screen, 'white', [150, 220, 300, 100], 0, 5)
-        pygame.draw.rect(screen, 'green', [150, 220, 300, 100], 3, 5)
-        pygame.draw.rect(screen, 'black', [153, 223, 294, 94], 3, 5)
+        screen.blit(result_font.render(results[result], True, 'white'), (15, 25))
+        deal = pygame.draw.rect(screen, 'white', [300, 20, 300, 100], 0, 5)
+        pygame.draw.rect(screen, 'green', [300, 20, 300, 100], 3, 5)
+        pygame.draw.rect(screen, 'black', [303, 20, 294, 94], 3, 5)
         deal_text = font.render('NEW HAND', True, 'black')
-        screen.blit(deal_text, (165, 250))
+        text_rect = deal_text.get_rect(center=deal.center)
+        screen.blit(deal_text, text_rect)
         button_list.append(deal)
     return button_list
 
@@ -205,11 +216,11 @@ def check_endgame(hand_act, deal_score, play_score, result, totals, add):
     # check end game scenarios is player has stood, busted or blackjacked
     # result 1- player bust, 2-win, 3-loss, 4-push
     if not hand_act and deal_score >= 17:
-        if play_score > 21:
+        if play_score > target_score:
             result = 1
-        elif deal_score < play_score <= 21 or deal_score > 21:
+        elif deal_score < play_score <= target_score:
             result = 2
-        elif play_score < deal_score <= 21:
+        elif play_score < deal_score <= target_score:
             result = 3
         else:
             result = 4
@@ -306,7 +317,7 @@ while run:
         draw_cards(my_hand, dealer_hand, reveal_dealer)
         if reveal_dealer:
             dealer_score = calculate_score(dealer_hand)
-            if dealer_score < 17:
+            if dealer_score < target_score:
                 dealer_hand, game_deck = deal_cards(dealer_hand, game_deck)
                 dealer_animation = 30
         draw_scores(player_score, dealer_score)
@@ -340,7 +351,7 @@ while run:
                     add_score = True
             else:
                 # if player can hit, allow them to draw a card
-                if buttons[0].collidepoint(event.pos) and player_score < 21 and hand_active:
+                if buttons[0].collidepoint(event.pos) and player_score < target_score and hand_active:
                     my_hand, game_deck = deal_cards(my_hand, game_deck)
                     #kaart animatie toevoegen
                     card_animation = 40
@@ -366,7 +377,7 @@ while run:
 
 
     # if player busts, automatically end turn - treat like a stand
-    if hand_active and player_score >= 21:
+    if hand_active and player_score >= target_score:
         hand_active = False
         reveal_dealer = True
 

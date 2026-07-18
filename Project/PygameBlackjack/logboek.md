@@ -34,7 +34,20 @@ Ik wou nog de kleur van de symbolen aanpassen en al een deel  in de code gezet m
 # 16 juli 2200
 
 Vandaag wou ik de kleuren wat aanpassen om de layout wat aantrekkelijker te maken en de knoppen wat verplaatsen zodat die niet heel het scherm  innemen. Ik vond dat de kaarten ook heel statisch binnenkomen dus ik wou ook een code schrijven om deze te animeren zodat het spel toch wat dynamischer lijkt. 
-Ook heb ik een naam toegevoegd aan de "bot" om het meer te doen lijken dat je echt met 2 aan't spelen bent. 
+Ik heb een naam toegevoegd aan de dealer zodat het spel persoonlijker aanvoelt. Hiervoor heb ik een extra variabele dealer_name aangemaakt. Hierdoor ziet de speler duidelijk tegen wie gespeeld wordt. 
+
+# 18 juli 2200
+
+Het is al zo goed als middernacht als ik dit logboek schrijf maar ik wou toch nog een paar uurtjes werk in de game steken. Ik wil nu gewoon kijken hoe ik eventueel de kleuren, fonts en/of de knoppen kan aanpassen. Ik ga moeten zien hoe ver ik geraak deze nacht. 
+Ik ga beginnen met de grootte van de fonts aan te passen om te zien wat voor invloed dat dit heeft op de game.Hopend dat de tekst beter op het scherm past. 
+Met dit te testen merkte ik dat mijn score niet juist aan het optellen was. Na het terugkijken naar de code merkte ik op dat mijn loop 8x optelt waardoor dat mijn score immens hoog was. Deze functie heb ik dan ook nog moeten aanpassen. 
+
+Hierdoor merkte ik ook dat er verschillende functies nog niet had aangepast naar de "Chaos mode" die ik had toegevoegd. Het spel blokkeerde en sloot gewoon af omdat de code tegenstrijdig was met verschillende functies die maar tot score 21 gingen maar ik had al eerder de "Chaos mode" toegevoegd dat de score kon oplopen tot 23. Dit heeft me toch ook wel effe gekost om dit uit te zoeken en overal aan te passen. 
+
+Vandaag waren het vooral schoonheidsfoutjes waar ik aan heb gewerkt: de kleuren van mijn syombolen, de knop die niet juist gecentreerd stond. Als deze dan juist stond, vond ik dat de score dan weer niet juist stond. En zo bleef ik schoonheidspuntjes verbeteren in mijn code. Prulwerk als je het zo moet noemen maar ook wel heel leerrijk om de juiste afstand, kleuren en dergelijke te vinden. 
+
+
+
 
 
 
