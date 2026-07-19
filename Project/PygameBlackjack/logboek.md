@@ -46,6 +46,10 @@ Hierdoor merkte ik ook dat er verschillende functies nog niet had aangepast naar
 
 Vandaag waren het vooral schoonheidsfoutjes waar ik aan heb gewerkt: de kleuren van mijn syombolen, de knop die niet juist gecentreerd stond. Als deze dan juist stond, vond ik dat de score dan weer niet juist stond. En zo bleef ik schoonheidspuntjes verbeteren in mijn code. Prulwerk als je het zo moet noemen maar ook wel heel leerrijk om de juiste afstand, kleuren en dergelijke te vinden. 
 
+## 19 juli 1630
+
+Vandaag nog een laatste uitbreidingen toevoegen aan de game. Ik wil proberen om de knoppen te laten hoveren als je erover gaat met je muis. 
+
 
 
 

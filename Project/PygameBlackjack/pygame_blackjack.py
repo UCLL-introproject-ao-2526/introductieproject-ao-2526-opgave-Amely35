@@ -1,14 +1,14 @@
-# black jack in python wth pygame!
 import copy
+from operator import add
 import random
 import pygame
 
 pygame.init()
-# game variables
+
 card_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
 #symbolen toevoegen aan kaarten
 card_suits = ['♠', '♥', '♦', '♣']
-color = "red" if card_suits in ['♥', '♦'] else "black"
 one_deck = 4 * card_values
 
 one_deck = []
@@ -34,13 +34,14 @@ result_font .set_italic(True)
 active = False
 show_tutorial = True
 dealer_name = "Casino Bot"
-# win, loss, draw/push
+
 records = [0, 0, 0]
 player_score = 0
 dealer_score = 0
 
 # toevoegen "chaos mode"
 target_score = 21
+
 # kaarten animatie toevoegen
 card_animation = 0
 dealer_animation = 0
@@ -55,7 +56,6 @@ add_score = False
 results = ['', 'PLAYER BUSTED o_O', 'Player WINS! :)', 'DEALER WINS :(', 'TIE GAME...']
 
 
-# deal cards by selecting randomly from deck, and make function for one card at a time
 def deal_cards(current_hand, current_deck):
     card = random.randint(0, len(current_deck))
     current_hand.append(current_deck[card - 1])
@@ -63,7 +63,7 @@ def deal_cards(current_hand, current_deck):
     return current_hand, current_deck
 
 
-# draw scores for player and dealer on screen
+
 def draw_scores(player, dealer):
     screen.blit(
         smaller_font.render(dealer_name, True, "gold"),
@@ -79,7 +79,7 @@ def draw_scores(player, dealer):
             (400, 140)
         ) 
 
-# draw cards visually onto screen
+
 def draw_cards(player, dealer, reveal):
     for i in range(len(player)):
         y_pos = 460 +(5*i)
@@ -113,7 +113,7 @@ def draw_cards(player, dealer, reveal):
             5
            )
 
-    # if player hasn't finished turn, dealer will hide one card
+    
     for i in range(len(dealer)):
         dealer_y = 160 +(5*i)
 
@@ -150,7 +150,7 @@ def draw_cards(player, dealer, reveal):
            )    
 
 
-# pass in player or dealer hand and get best score possible
+
 def calculate_score(hand):
     hand_score = 0
     aces_count = sum(1 for card in hand if card[0] ==  'A')
@@ -173,32 +173,71 @@ def calculate_score(hand):
     
     return hand_score
 
-
-# draw game conditions and buttons
 def draw_game(act, record, result):
     button_list = []
+
+    #hoverfunctie toevoegen aan knoppen
+    mouse_pos = pygame.mouse.get_pos()
     # initially on startup (not active) only option is to deal new hand
     if not act:
-        deal = pygame.draw.rect(screen, 'white', [150, 20, 300, 100], 0, 5)
+        deal_color = "white"
+
+        if pygame.Rect(150, 20, 300, 100).collidepoint(mouse_pos):
+            deal_color = "lightgreen"
+
+        deal = pygame.draw.rect(
+            screen, 
+            deal_color, 
+            [150, 20, 300, 100],
+            0,
+            5
+        )
+        
         pygame.draw.rect(screen, 'green', [150, 20, 300, 100], 3, 5)
         deal_text = font.render('DEAL HAND', True, 'black')
         screen.blit(deal_text, (165, 50))
+
         button_list.append(deal)
-    # once game started, shot hit and stand buttons and win/loss records
+
+   
     else:
-        hit = pygame.draw.rect(screen, 'white', [0, 700, 300, 100], 0, 5)
-        pygame.draw.rect(screen, 'green', [0, 700, 300, 100], 3, 5)
+        hit_color = "white"
+        hit_y = 700
+        if pygame.Rect(0, 700, 300, 100).collidepoint(mouse_pos):
+            hit_color = "lightgray"
+            hit_y = 690
+
+        hit = pygame.draw.rect(
+            screen,
+            hit_color, 
+            [0, hit_y, 300, 100],
+            0,
+            5
+        )
+        pygame.draw.rect(screen, 'green', [0, hit_y, 300, 100], 3, 5)
         hit_text = font.render('HIT ME', True, 'black')
-        screen.blit(hit_text, (55, 735))
+        screen.blit(hit_text, (55, hit_y + 35))
         button_list.append(hit)
-        stand = pygame.draw.rect(screen, 'white', [300, 700, 300, 100], 0, 5)
-        pygame.draw.rect(screen, 'green', [300, 700, 300, 100], 3, 5)
+
+        stand_color = "white"
+        stand_y = 700
+        if pygame.Rect(300, 700, 300, 100).collidepoint(mouse_pos):
+            stand_color = "lightgray"
+            stand_y = 690
+        stand = pygame.draw.rect(
+            screen,
+            stand_color,
+            [300, stand_y, 300, 100],
+            0,
+            5
+        )
+        pygame.draw.rect(screen, 'green', [300, stand_y, 300, 100], 3, 5)
         stand_text = font.render('STAND', True, 'black')
-        screen.blit(stand_text, (355, 735))
+        screen.blit(stand_text, (355, stand_y + 35))
         button_list.append(stand)
         score_text = smaller_font.render(f'Wins: {record[0]}   Losses: {record[1]}   Draws: {record[2]}', True, 'white')
         screen.blit(score_text, (15, 840))
-    # if there is an outcome for the hand that was played, display a restart button and tell user what happened
+    
     if result != 0:
         screen.blit(result_font.render(results[result], True, 'white'), (15, 25))
         deal = pygame.draw.rect(screen, 'white', [300, 20, 300, 100], 0, 5)
@@ -210,11 +249,7 @@ def draw_game(act, record, result):
         button_list.append(deal)
     return button_list
 
-
-# check endgame conditions function
 def check_endgame(hand_act, deal_score, play_score, result, totals, add):
-    # check end game scenarios is player has stood, busted or blackjacked
-    # result 1- player bust, 2-win, 3-loss, 4-push
     if not hand_act and deal_score >= 17:
         if play_score > target_score:
             result = 1
@@ -232,7 +267,8 @@ def check_endgame(hand_act, deal_score, play_score, result, totals, add):
             else:
                 totals[2] += 1
             add = False
-    return result, totals, add
+            
+    return result, totals, add 
 
 # Tutorial toevoegen met uitleg Hit en Stand
 
@@ -252,30 +288,46 @@ def draw_tutorial():
     screen.blit(line3, (40, 300))
     screen.blit(line4, (40, 360))
 
-    start_button = pygame.draw.rect(
-        screen,
-        "white",
-        [100, 650, 400, 100]
-    )
+   # Hover aanpassen voor startknop - groter wordt als je pijl erop komt. 
+    mouse_pos = pygame.mouse.get_pos()
 
+    button_x = 100
+    button_y = 650
+    button_width = 400
+    button_height = 100
+
+    if pygame.Rect(button_x, button_y, button_width, button_height).collidepoint(mouse_pos):
+        button_x = 90
+        button_y = 640
+        button_width = 420
+        button_height = 120
+
+    start_button = pygame.draw.rect(
+        screen, 
+        "white",
+        [button_x, button_y, button_width, button_height],
+    )
     pygame.draw.rect(
         screen,
         "Gold",
-        [100, 650, 400, 100],
+        [button_x, button_y, button_width, button_height],
         4
     )
 
-    start_text = tutorial_font.render(
-        "START GAME",
-        True,
-        "Forest green"
-    )
+    if pygame.Rect(button_x, button_y, button_width, button_height).collidepoint(mouse_pos):
+        button_text_font = pygame.font.SysFont("segoe ui symbol", 30)
+        button_text_font.set_bold(True)
+    else:
+        button_text_font = pygame.font.SysFont("segoe ui symbol", 24)
+        button_text_font.set_bold(True)
 
-    screen.blit(start_text, (210, 690))
+    start_text = button_text_font.render("START GAME", True, "forest green")
+
+    text_rect = start_text.get_rect(center=start_button.center)
+    screen.blit(start_text, text_rect)
 
     return start_button
 
-# main game loop
 run = True
 while run:
 
@@ -304,20 +356,19 @@ while run:
     # achtergrond aanpassen 
     screen.fill((0,50,0))
 
-    # initial deal to player and dealer
     if initial_deal:
         for i in range(2):
             my_hand, game_deck = deal_cards(my_hand, game_deck)
             dealer_hand, game_deck = deal_cards(dealer_hand, game_deck)
         initial_deal = False
-    # once game is activated, and dealt, calculate scores and display cards
+    
     if active:
         player_score = calculate_score(my_hand)
         print(my_hand)
         draw_cards(my_hand, dealer_hand, reveal_dealer)
         if reveal_dealer:
             dealer_score = calculate_score(dealer_hand)
-            if dealer_score < target_score:
+            if dealer_score < target_score - 4:
                 dealer_hand, game_deck = deal_cards(dealer_hand, game_deck)
                 dealer_animation = 30
         draw_scores(player_score, dealer_score)
@@ -375,9 +426,7 @@ while run:
                         dealer_score = 0
                         player_score = 0
 
-
-    # if player busts, automatically end turn - treat like a stand
-    if hand_active and player_score >= target_score:
+    if hand_active and player_score > target_score:
         hand_active = False
         reveal_dealer = True
 
