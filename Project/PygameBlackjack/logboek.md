@@ -48,7 +48,10 @@ Vandaag waren het vooral schoonheidsfoutjes waar ik aan heb gewerkt: de kleuren 
 
 ## 19 juli 1630
 
-Vandaag nog een laatste uitbreidingen toevoegen aan de game. Ik wil proberen om de knoppen te laten hoveren als je erover gaat met je muis. 
+Vandaag nog een laatste uitbreidingen toevoegen aan de game. Ik wil proberen om de knoppen te laten hoveren als je erover gaat met je muis. Dan heb ik de kleur ook nog aangepast dat deze lichtgrijs worden als je erover gaat met je cursor. 
+Net alles in mijn code nagekeken en deze voor de zekerheid door Copilot laten nakijken om zeker te zijn dat mijn Syntaxen overal juist staan en dergelijke. 
+Nu kan ik het feedback vragen aan Daan en kunnen we later zien wat we nog moeten/kunnen aanpassen. 
+
 
 
 

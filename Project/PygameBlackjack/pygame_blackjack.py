@@ -150,7 +150,6 @@ def draw_cards(player, dealer, reveal):
            )    
 
 
-
 def calculate_score(hand):
     hand_score = 0
     aces_count = sum(1 for card in hand if card[0] ==  'A')
